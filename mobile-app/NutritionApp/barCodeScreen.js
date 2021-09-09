@@ -2,7 +2,7 @@ import React, { useState, useEffect }  from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-export default function BarCodeScreen() {
+export default function BarCodeScreen({ navigation }) {
   const [hasPermission, setHasPermission]  = useState(null);
   const [scanned, setScanned, showScanner] = useState(false);
 
@@ -23,7 +23,12 @@ export default function BarCodeScreen() {
 
   const handleBarCodeScanned = ({ type, data }) => {
       setScanned(true);
-      alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+//      alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+      navigation.navigate({
+        name: 'Home',
+        params: { barCodeData: data },
+        merge: true,
+      });
   };
 
 
@@ -40,7 +45,6 @@ export default function BarCodeScreen() {
       onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
       style={StyleSheet.absoluteFillObject}
     />
-    <Button title={'Tap to Scan'} onPress={() => setScanned(false)} />
   </>
   );
 

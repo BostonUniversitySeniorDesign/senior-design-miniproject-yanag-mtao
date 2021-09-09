@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
 import AuthScreen from './googleUserSignIn';
@@ -15,7 +15,7 @@ const Greeting = (props) => {
 }
 
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ navigation, route }) {
 //  const { user } = useContext(AuthenticatedUserContext);
 //  const handleSignOut = async () => {
 //    try {
@@ -24,18 +24,31 @@ export default function HomeScreen({ navigation }) {
 //      console.log(error);
 //    }
 //  };
+
+  React.useEffect(() => {
+      if (route.params?.barCodeData) {
+        alert(`Bar code with data ${route.params?.barCodeData} has been scanned!`);
+        // Post updated, do something with `route.params.post`
+        // For example, send the post to the server
+      }
+    }, [route.params?.barCodeData]);
+
   return (
     <View style={styles.container}>
-          <Text>Open up App.js to start working on your app!</Text>
-          <Text>Hello world!</Text>
-          <Greeting name='Yana' />
-          <AuthScreen/>
-          <Button
-            title="Go to Barcode Scanner"
-            onPress={() => navigation.navigate('BarCode')}
-          />
+      <Text>Open up App.js to start working on your app!</Text>
+      <Text>Hello world!</Text>
+      <Greeting name='Yana' />
+      <AuthScreen/>
+      <Button
+        title="Go to Barcode Scanner"
+        onPress={() => navigation.navigate('BarCode')}
+      />
+      <Button
+        title="Create New Recipe"
+        onPress={() => navigation.navigate('NewRecipe')}
+      />
 
-          <StatusBar style="auto" />
+      <StatusBar style="auto" />
     </View>
   );
 }
