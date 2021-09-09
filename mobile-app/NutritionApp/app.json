@@ -18,6 +18,7 @@
     ],
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "barcode.nutritionApp",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {

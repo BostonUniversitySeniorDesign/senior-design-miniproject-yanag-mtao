@@ -16,7 +16,7 @@ dist/
 **/.expo/
 
 typings/
-
+android/
 
 .npm
 
