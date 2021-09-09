@@ -3,9 +3,9 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import HomeScreen from './homeScreen';
-import BarCodeScreen from './barCodeScreen';
-import NewRecipeScreen from './newRecipeScreen';
+import HomeScreen from './screens/homeScreen';
+import BarCodeScreen from './screens/barCodeScreen';
+import NewRecipeScreen from './screens/newRecipeScreen';
 
 const Stack = createNativeStackNavigator();
 
