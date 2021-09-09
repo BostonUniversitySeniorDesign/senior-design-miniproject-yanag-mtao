@@ -3,13 +3,13 @@ import React, { useContext, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
 import AuthScreen from '../components/googleUserSignIn';
-import BarCodeScreen from '../components/barCodeScreen';
+import BarCodeScreen from './barCodeScreen';
 
 
 const Greeting = (props) => {
     return (
         <View style={styles.center}>
-          <Text>Hello {props.name}!</Text>
+          <Text>Hello world {props.name}!</Text>
         </View>
       );
 }
