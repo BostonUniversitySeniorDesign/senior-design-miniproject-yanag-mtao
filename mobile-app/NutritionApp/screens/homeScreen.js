@@ -2,8 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-import AuthScreen from './googleUserSignIn';
-import BarCodeScreen from './barCodeScreen';
+import AuthScreen from '../components/googleUserSignIn';
+import BarCodeScreen from '../components/barCodeScreen';
 
 
 const Greeting = (props) => {

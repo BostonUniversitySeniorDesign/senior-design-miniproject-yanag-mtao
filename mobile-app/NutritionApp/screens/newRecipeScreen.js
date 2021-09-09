@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 
 
-import AddFoodButton from "./addFoodButton";
+import AddFoodButton from "../components/addFoodButton";
 
 const myData = [
   {'key': 1, 'name': 'apple', 'servings': 1, 'cals_per_serving': 60},
