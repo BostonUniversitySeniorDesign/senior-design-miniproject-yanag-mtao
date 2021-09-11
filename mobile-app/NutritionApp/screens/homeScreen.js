@@ -5,25 +5,18 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import AuthScreen from '../components/googleUserSignIn';
 import BarCodeScreen from './barCodeScreen';
 
+import firebase from 'firebase/app';
 
-const Greeting = (props) => {
-    return (
-        <View style={styles.center}>
-          <Text>Hello world {props.name}!</Text>
-        </View>
-      );
-}
+
+firebase.initializeApp({
+  apiKey:     'xxxxxxx',
+  authDomain: 'xxxxxxx',
+  projectId:  'xxxxxxx'
+});
+
 
 
 export default function HomeScreen({ navigation, route }) {
-//  const { user } = useContext(AuthenticatedUserContext);
-//  const handleSignOut = async () => {
-//    try {
-//      await auth.signOut();
-//    } catch (error) {
-//      console.log(error);
-//    }
-//  };
 
   React.useEffect(() => {
       if (route.params?.barCodeData) {
@@ -35,9 +28,7 @@ export default function HomeScreen({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
       <Text>Hello world!</Text>
-      <Greeting name='Yana' />
       <AuthScreen/>
       <Button
         title="Go to Barcode Scanner"
