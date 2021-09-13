@@ -27,7 +27,7 @@ export default function BarCodeScreen({ navigation }) {
       setScanned(true);
 //      alert(`Bar code with type ${type} and data ${data} has been scanned!`);
       navigation.navigate({
-        name: 'Home',
+        name: 'NewRecipe',
         params: { barCodeData: data },
         merge: true,
       });

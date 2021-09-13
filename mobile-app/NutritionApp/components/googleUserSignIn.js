@@ -1,72 +1,64 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, Button } from 'react-native';
 
-import * as GoogleAuthentication from 'expo-google-app-auth';
 import firebase from 'firebase';
+import { ResponseType } from 'expo-auth-session';
+import * as Google from 'expo-auth-session/providers/google';
+import {useAuth} from '../auth';
 
 
+if (!firebase.apps.length) {
+  firebase.initializeApp({
+       apiKey:     'xxx',
+       authDomain: 'xxx',
+       projectId:  'xxx'
+     });
+}else {
+   firebase.app(); // if already initialized, use that one
+}
 
-export default class AuthScreen extends React.Component {
-  state = { user: null };
+export default function GoogleUserSignIn() {
+  const auth = useAuth();
+
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
+      {
+        expoClientId: 'xxx',
+        },
+    );
+
+  // Listen for authentication state to change.
+  firebase.auth().onAuthStateChanged(user => {
+    if (user != null) {
+      console.log('We are authenticated now! For sure!');
+      auth.signIn(user);
+    }
+    console.log('We are authenticated now! MAYBE?', user);
+    // Do other things
+  });
 
 
-//  componentDidMount() {
-//
-//    this.initAsync();
-//  }
+  React.useEffect(() => {
+      if (response?.type === 'success') {
+        console.log("res success");
+        const { id_token } = response.params;
+        console.log(id_token);
 
-  signInWithGoogle = () => {
-      console.log("Hello world");
-      GoogleAuthentication.logInAsync({
-          androidStandaloneAppClientId: '377513650386-nlo77cbtn19b5pr3g4s3b8f3cfcago7g.apps.googleusercontent.com',
-//          iosStandaloneAppClientId: '377513650386-nlo77cbtn19b5pr3g4s3b8f3cfcago7g.apps.googleusercontent.com',
-          androidClientId:
-              "377513650386-nlo77cbtn19b5pr3g4s3b8f3cfcago7g.apps.googleusercontent.com",
-//          iosClientId:
-//              '377513650386-5rass0tt9ao84lp88s64t4mkbc4g24qk.apps.googleusercontent.com',
-          scopes: ['profile', 'email']
-      })
-          .then((logInResult) => {
-              if (logInResult.type === 'success') {
-                  const { idToken, accessToken } = logInResult;
-                  const credential = firebase.auth.GoogleAuthProvider.credential(
-                      idToken,
-                      accessToken
-                  );
-                        console.log("Success");
-
-                  return firebase.auth().signInWithCredential(credential);
-                  // Successful sign in is handled by firebase.auth().onAuthStateChanged
-              }
-              return Promise.reject(); // Or handle user cancelation separatedly
-          })
-          .catch((error) => {
-              console.log(error)
-              // ...
+        const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
+        console.log('firebase cred', credential);
+        firebase
+          .auth()
+          .signInWithCredential(credential)
+          .catch(error => {
+            // Handle Errors here.
+            alert("Unable to log in");
           });
 
-  };
-//  initAsync = async () => {
-//    try {
-//       await GoogleSignIn.initAsync();
-//    }
-//    catch ({ message }) {
-//          alert('GoogleSignIn.initAsync(): ' + message);
-//    }
-//    this._syncUserWithStateAsync();
-//  };
+      }
+    }, [response]);
 
-//  _syncUserWithStateAsync = async () => {
-//    const user = await GoogleSignIn.signInSilentlyAsync();
-//    this.setState({ user });
-//  };
-//
-//  signOutAsync = async () => {
-//    await GoogleSignIn.signOutAsync();
-//    this.setState({ user: null });
-//  };
+    return (<Button
+     title="Toggle Auth"
+     disabled={!request}
+     onPress={() => {promptAsync();}} />);
 
-  render() {
-    return <Button title="Toggle Auth" onPress={this.signInWithGoogle} />;
-  }
  }
