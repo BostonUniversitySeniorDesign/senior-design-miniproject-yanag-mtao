@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, ImageBackground } from 'react-native';
 import axios from 'axios';
 
 
@@ -98,23 +98,24 @@ export default function NewRecipeScreen({ navigation, route }) {
       }, [route.params?.barCodeData]);
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+            style={styles.background}
+            source={require("../assets/Foodbackground.png")}
+        >
           <Text>Creating New Recipe</Text>
-          <Ingredients/>
           <Button
             title="Save"
             onPress={() =>  navigation.goBack()}
           />
           <AddFoodButton onPress={() => navigation.navigate('BarCode')}/>
-    </View>
+      </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    justifyContent: "center",
+    alignItems: "center"
+},
 });
