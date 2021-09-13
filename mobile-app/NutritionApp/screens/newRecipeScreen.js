@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
+import axios from 'axios';
+
 
 import * as firebase from 'firebase';
 import 'firebase/firestore';
@@ -31,6 +33,20 @@ const renderRow = (datum, i) => {
         </View>
     );
 };
+
+const getNutritionDataUsingAsyncAwaitGetCall = async (barcode) => {
+    try {
+      const response = await axios
+        .post('https://api.nal.usda.gov/fdc/v1/foods/search?api_key=DEMO_KEY', {
+           query: barcode,
+           dataType: ["Branded"],
+           userId: 1,
+         });
+      alert(JSON.stringify(response.data));
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
 
 const Ingredients = () => {
@@ -73,7 +89,13 @@ const Ingredients = () => {
 export default function NewRecipeScreen({ navigation, route }) {
   const recipes = useState([]);
 
+  React.useEffect(() => {
+        if (route.params?.barCodeData) {
+          alert(`Bar code with data ${route.params?.barCodeData} has been scanned!`);
+          getNutritionDataUsingAsyncAwaitGetCall(route.params?.barCodeData);
 
+        }
+      }, [route.params?.barCodeData]);
 
   return (
     <View style={styles.container}>

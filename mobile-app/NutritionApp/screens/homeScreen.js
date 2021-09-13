@@ -8,7 +8,6 @@ import {useAuth} from '../auth';
 
 
 import firebase from 'firebase/app';
-import axios from 'axios';
 
 
 if (!firebase.apps.length) {
@@ -22,32 +21,14 @@ if (!firebase.apps.length) {
 }
 
 
-const getDataUsingAsyncAwaitGetCall = async (barcode) => {
-    try {
-      const response = await axios
-        .post('https://api.nal.usda.gov/fdc/v1/foods/search?api_key=DEMO_KEY', {
-           query: barcode,
-           dataType: ["Branded"],
-           userId: 1,
-         });
-      alert(JSON.stringify(response.data));
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+
 
 
 export default function HomeScreen({ navigation, route }) {
   const {authData, signOut} = useAuth();
 
 
-  React.useEffect(() => {
-      if (route.params?.barCodeData) {
-        alert(`Bar code with data ${route.params?.barCodeData} has been scanned!`);
-        getDataUsingAsyncAwaitGetCall(route.params?.barCodeData);
 
-      }
-    }, [route.params?.barCodeData]);
 
   console.log("auth data", authData);
   return (
