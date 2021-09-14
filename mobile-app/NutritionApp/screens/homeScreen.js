@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useEffect } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button,ImageBackground } from 'react-native';
 
 import AuthScreen from '../components/googleUserSignIn';
 import BarCodeScreen from './barCodeScreen';
 import {useAuth} from '../auth';
+import AddFoodButton from "../components/addFoodButton";
+import LogoutButton from '../components/logoutButton';
 
 
 import firebase from 'firebase/app';
@@ -32,32 +34,29 @@ export default function HomeScreen({ navigation, route }) {
 
   console.log("auth data", authData);
   return (
-    <View style={styles.container}>
-      <Text>Hello {authData.name}</Text>
+    <ImageBackground
+            style={styles.background}
+            source={require("../assets/Foodbackground.png")}
+        >
+      <Text style={styles.contentText}> Welcome [UserName]!{authData.name}</Text>
       <AuthScreen/>
-      <Button
-        title="Go to Barcode Scanner"
-        onPress={() => navigation.navigate('BarCode')}
-      />
-      <Button
-        title="Create New Recipe"
-        onPress={() => navigation.navigate('NewRecipe')}
-      />
-      <Button
-        title="Sign Out"
-        onPress={signOut}
-      />
-
+      <LogoutButton onPress= {signOut}/>
+      <AddFoodButton onPress={() => navigation.navigate('NewRecipe')}/>
       <StatusBar style="auto" />
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  background: {
+    flex: 1
+},
+contentText: {
+  fontSize: 30,
+  fontWeight: 'bold',
+  marginLeft: 10,
+  marginRight: 5,
+  marginTop: 520,
+  color: "#FFFFFF"
+},
 });

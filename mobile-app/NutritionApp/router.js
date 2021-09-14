@@ -10,6 +10,7 @@ import HomeScreen from './screens/homeScreen';
 import LoginScreen from './screens/loginScreen';
 import BarCodeScreen from './screens/barCodeScreen';
 import NewRecipeScreen from './screens/newRecipeScreen';
+import HelloScreen from './screens/HelloScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,14 +27,14 @@ export const AppRouter = () => {
       <Stack.Navigator>
         {authData?.token ? (
           <>
-            <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
 
           </>
 
         ) : (
                   <>
-
+          <Stack.Screen name="Hello" component={HelloScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="NewRecipe" component={NewRecipeScreen} />
            <Stack.Screen name="BarCode" component={BarCodeScreen} />
 </>
