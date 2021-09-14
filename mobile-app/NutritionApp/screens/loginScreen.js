@@ -2,37 +2,29 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-import {useAuth} from '../auth';
-import firebase from 'firebase';
-import { ResponseType } from 'expo-auth-session';
-import * as Google from 'expo-auth-session/providers/google';
+import {AuthContext} from '../auth';
 
 import GoogleUserSignIn from '../components/googleUserSignIn'
 
 
-if (!firebase.apps.length) {
-   firebase.initializeApp({
-     apiKey:     'xxx',
-     authDomain: 'xxx',
-     projectId:  'xxx'
-   });
-}else {
-   firebase.app(); // if already initialized, use that one
-}
-
-
-export default function LoginScreen({ navigation, route }) {
-  const auth = useAuth();
-
-
+export default function LoginScreen() {
+  const {  signIn, signOut } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
-
-      <GoogleUserSignIn/>
+    <GoogleUserSignIn/>
       <Button
         title="Log out"
-        onPress={auth.signOut}
+        onPress={() => {
+          console.log('clicked log out');
+          signOut();
+       }}
+      />
+      <Button
+        title="hi"
+        onPress={() => {
+          console.log('hello');
+       }}
       />
       <StatusBar style="auto" />
     </View>

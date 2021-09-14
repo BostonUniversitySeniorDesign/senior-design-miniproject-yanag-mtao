@@ -99,13 +99,13 @@ export default function NewRecipeScreen({ navigation, route, props}) {
   React.useEffect(() => {
     if (route.params?.barCodeData) {
       // Query USDA API
-      getNutritionDataUsingAsyncAwaitGetCall(route.params?.barCodeData);
+      getNutritionData(route.params?.barCodeData);
 
     }
   }, [route.params?.barCodeData]);
 
 
-  const getNutritionDataUsingAsyncAwaitGetCall = async (barcode) => {
+  const getNutritionData = async (barcode) => {
       // query USDA API
       try {
         const response = await axios
@@ -144,24 +144,25 @@ export default function NewRecipeScreen({ navigation, route, props}) {
 
   const saveRecipe = async () => {
     try {
-      ref.update(recipe);
+      await ref.update(recipe);
+      alert("Successfully saved recipe!");
+
     }
     catch (error) {
       alert(error.message);
     }
 
-    alert("Successfully saved recipe!");
 
 
   };
 
   const deleteIngredient = (idx) => {
-    // update current state to show new ingredient
     console.log(`deleting ingredient ${idx}`);
     var res = recipe.ingredients.filter((e, i) => {
       return (i != idx);
     });
 
+    // set state to updated ingredient list
     setRecipe({
       ...recipe,
       "ingredients": res,

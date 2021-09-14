@@ -1,40 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Text, Button } from 'react-native';
 
 import firebase from 'firebase';
 import { ResponseType } from 'expo-auth-session';
 import * as Google from 'expo-auth-session/providers/google';
-import {useAuth} from '../auth';
+import {AuthContext} from '../auth';
 
-
-if (!firebase.apps.length) {
-  firebase.initializeApp({
-       apiKey:     'xxx',
-       authDomain: 'xxx',
-       projectId:  'xxx'
-     });
-}else {
-   firebase.app(); // if already initialized, use that one
-}
 
 export default function GoogleUserSignIn() {
-  const auth = useAuth();
+  const { signIn } = useContext(AuthContext);
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
       {
-        expoClientId: 'xxx',
+        expoClientId: '377513650386-f5kcu9r0nl52leftfd277do21s3e81ft.apps.googleusercontent.com',
+        webClientId: '377513650386-bavoedpc8tim7gal4po64sh373gsb0fv.apps.googleusercontent.com',
+        androidClientId: '377513650386-nlo77cbtn19b5pr3g4s3b8f3cfcago7g.apps.googleusercontent.com',
+        iosClientId: '377513650386-5rass0tt9ao84lp88s64t4mkbc4g24qk.apps.googleusercontent.com',
         },
     );
 
-  // Listen for authentication state to change.
-  firebase.auth().onAuthStateChanged(user => {
-    if (user != null) {
-      console.log('We are authenticated now! For sure!');
-      auth.signIn(user);
-    }
-    console.log('We are authenticated now! MAYBE?', user);
-    // Do other things
-  });
 
 
   React.useEffect(() => {

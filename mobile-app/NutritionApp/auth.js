@@ -16,39 +16,80 @@ if (!firebase.apps.length) {
    firebase.app(); // if already initialized, use that one
 }
 
-const AuthContext = createContext();
+const AuthContext = createContext({});
 
+const AuthProvider = ({ children }) => {
 
-const AuthProvider = ({children}) => {
+  const [loading, setLoading] = useState(true);
   const [authData, setAuthData] = useState({});
+//  const [uid, setUid]     = useState();
+  const [token, setToken] = useState();
+//  const [name, setName]   = useState();
 
-  const [loading, setLoading] = useState(false);
+  const userData = {};
+
+  console.log("hello frieend");
+   // Listen for authentication state to change.
+  firebase.auth().onAuthStateChanged(async (user) => {
+    if (user != null) {
+      console.log('We are authenticated now! For sure!');
+//      console.log(user);
+     var token = null;
+     var name  = null;
+      try {
+//         token = await user.getIdToken();
+//         name  = user.displayName;
+//         console.log(String(token));
+//         console.log(authData);
+//        setAuthData({'token': 'token'});
+      }
+      catch (error) {
+        alert('could not get user token');
+        console.error(error);
+      }
+
+//      setToken(user.getIdToken());
+//      setUid(user.uid);
+//      setName(user.displayName);
+      //signIn(user);
+    }
+    else {
+       console.log("no user");
+       signIn();
+    }
+    console.log('boop');
+    if (loading) {
+
+      setLoading(false);
+      console.log("loading is now ", loading);
+    }
+
+    setToken({'token': 'token'});
 
 
-
-
-
-
-
+  });
 
   const signIn = (user) => {
+    console.log("Signing in");
+    console.log("token man age");
+
     //call the service passing credential (email and password).
     //In a real App this data will be provided by the user from some InputText components.
-    //GoogleSignIn();
     if (user) {
-     setAuthData({
-            "token":               user.stsTokenManager.accessToken,
-            "tokenExpirationTime": user.stsTokenManager.expirationTime,
-            "email":               user.email,
-            "name":                user.displayName,
-            "photoURL":            user.photoURL,
-            "uid":                 user.uid
-           });
+            //setAuthData({...user});
+
+    }
+
+
+    if (loading) {
+
+      setLoading(false);
+      console.log("loading is now ", loading);
     }
 
   };
 
-  const signOut = async () => {
+  const signOut = () => {
     console.log("Signing out...");
     //Remove data from context, so the App can be notified
     //and send the user to the AuthStack
@@ -62,25 +103,13 @@ const AuthProvider = ({children}) => {
 
   };
 
-  return (
-    //This component will be used to encapsulate the whole App,
-    //so all components will have access to the Context
-    <AuthContext.Provider value={{authData, loading, signIn, signOut}}>
+
+
+ return (
+    <AuthContext.Provider value={{ authData, signIn, signOut, loading }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-//A simple hooks to facilitate the access to the AuthContext
-// and permit components to subscribe to AuthContext updates
-function useAuth() {
-  const context = useContext(AuthContext);
-
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-
-  return context;
-}
-
-export {AuthContext, AuthProvider, useAuth}
+export { AuthContext, AuthProvider };
