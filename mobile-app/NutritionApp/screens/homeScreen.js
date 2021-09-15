@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button,ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Button,ImageBackground, Modal, Pressable} from 'react-native';
 
 import BarCodeScreen from './barCodeScreen';
 import {AuthContext} from '../auth';
 import AddFoodButton from "../components/addFoodButton";
 import LogoutButton from '../components/logoutButton';
 import RecipePicker from '../components/recipePicker';
+import NewRecipeModal from '../components/newRecipeModal';
 
 
 import firebase from 'firebase/app';
@@ -16,9 +17,9 @@ const ref = dbh.collection('recipes');
 
 
 export default function HomeScreen({ navigation, route }) {
-  const { authData, signOut } = useContext(AuthContext);
+//  const { authData, signOut }                = useContext(AuthContext);
   const [ selectedRecipe, setSelectedRecipe] = useState({});
-  const [ recipes, setRecipes] = useState([]);
+  const [ recipes, setRecipes]               = useState([]);
 
   // update ingredients from database as needed
   useEffect(() => {
@@ -34,18 +35,30 @@ export default function HomeScreen({ navigation, route }) {
     }, []);
 
 
+   const createNewRecipe = (name) => {
+      ref.add({
+        name: name,
+        ingredients: [],
+      });
+   };
+
+
 //  console.log("auth data", authData);
   return (
     <ImageBackground
       style={styles.background}
       source={require("../assets/Foodbackground.png")}
     >
-      <Text style={styles.contentText}> Welcome [UserName]!{authData.name}</Text>
+    <View style={styles.container}>
+      <Text style={styles.contentText}> Welcome [UserName]!</Text>
       <RecipePicker data={recipes} />
-      <LogoutButton onPress= {signOut}/>
+       <NewRecipeModal createNewRecipe={createNewRecipe}/>
+
+      <LogoutButton onPress= {()=>{}}/>
       <AddFoodButton onPress={() => navigation.navigate('NewRecipe')}/>
 
       <StatusBar style="auto" />
+    </View>
     </ImageBackground>
   );
 }
@@ -67,4 +80,10 @@ const styles = StyleSheet.create({
     marginTop: 50,
     color: "#FFFFFF"
   },
+   container: {
+      flex: 1,
+      paddingTop: 40,
+      alignItems: "center",
+
+    },
 });

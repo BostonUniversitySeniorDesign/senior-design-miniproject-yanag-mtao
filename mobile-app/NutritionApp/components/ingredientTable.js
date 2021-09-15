@@ -5,6 +5,9 @@ import { StyleSheet, View } from 'react-native';
 import TrashButton from './trashButton';
 
 
+
+
+
 export default function IngredientTable(props) {
   console.log('table', props);
 

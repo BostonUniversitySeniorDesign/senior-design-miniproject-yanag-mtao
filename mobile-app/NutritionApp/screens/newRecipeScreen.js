@@ -10,6 +10,8 @@ import 'firebase/firestore';
 import AddFoodButton from "../components/addFoodButton";
 import TrashButton from '../components/trashButton';
 import IngredientTable from '../components/ingredientTable';
+import NewIngredientModal from '../components/newIngredientModal';
+
 import { marginLeft } from 'styled-system';
 
 const dbh = firebase.firestore();
@@ -60,6 +62,13 @@ export default function NewRecipeScreen({ navigation, route, props}) {
     }
   }, [route.params?.barCodeData]);
 
+   const addIngredient = (ingredient) => {
+     // update current state to show new ingredient
+      setRecipe({
+        ...recipe,
+        "ingredients": [...recipe.ingredients, ingredient]
+      });
+   };
 
   const getNutritionData = async (barcode) => {
       // query USDA API
@@ -91,10 +100,8 @@ export default function NewRecipeScreen({ navigation, route, props}) {
           };
 
           // update current state to show new ingredient
-          setRecipe({
-            ...recipe,
-            "ingredients": [...recipe.ingredients, ingredient]
-          });
+          addIngredient(ingredient);
+
         }
       } catch (error) {
         alert(error.message);
@@ -111,6 +118,17 @@ export default function NewRecipeScreen({ navigation, route, props}) {
       alert(error.message);
     }
   };
+
+  const deleteRecipe = async () => {
+      try {
+        await ref.delete(recipe);
+        alert("Successfully deleted recipe!");
+        navigation.goBack();
+      }
+      catch (error) {
+        alert(error.message);
+      }
+    };
 
   const deleteIngredient = (idx) => {
     console.log(`deleting ingredient ${idx}`);
@@ -133,7 +151,8 @@ export default function NewRecipeScreen({ navigation, route, props}) {
             style={styles.background}
             source={require("../assets/Foodbackground.png")}
     >
-      {loading ?
+
+      {(loading || !recipe)?
         (<Text style={styles.contentText}>Loading ingredients...</Text>) :
         (
         <>
@@ -142,12 +161,20 @@ export default function NewRecipeScreen({ navigation, route, props}) {
           tableData={recipe.ingredients}
           deleteIngredient={deleteIngredient}
         />
+        <View style={styles.container}>
          <Text style={styles.contentText}> Total Calories: {totalCalories}</Text>
           <Button
             title="Save"
             onPress={saveRecipe}
           />
+          <Button
+            title="Delete Recipe"
+            onPress={deleteRecipe}
+          />
+          <NewIngredientModal createNewIngredient={addIngredient}/>
+
           <AddFoodButton onPress={() => navigation.navigate('BarCode')}/>
+        </View>
         </>
         )
 
@@ -186,4 +213,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: 'rgba(52, 52, 52, 0.4)'
 },
+ container: {
+      flex: 1,
+      paddingTop: 40,
+      alignItems: "center",
+
+    }
 });
