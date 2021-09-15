@@ -13,10 +13,10 @@ node_modules/
 jspm_packages/
 
 dist/
-
+**/.expo/
 
 typings/
-
+android/
 
 .npm
 
