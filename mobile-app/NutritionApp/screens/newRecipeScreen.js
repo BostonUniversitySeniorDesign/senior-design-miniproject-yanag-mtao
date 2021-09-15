@@ -82,7 +82,7 @@ export default function NewRecipeScreen({ navigation, route, props}) {
         console.log(JSON.stringify(response.data));
         data = response.data;
         if (data.totalHits == 0) {
-          alert(`Unable to find food with barcode ${barcode}`);
+          alert(`Unable to find nutrition data for barcode ${barcode}`);
         }
         else {
           food = data.foods[0];

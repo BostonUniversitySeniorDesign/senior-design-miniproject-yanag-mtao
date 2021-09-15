@@ -13,13 +13,17 @@ export default function RecipePicker(props) {
     const [selectedValue, setSelectedValue] = useState();
     const navigation = useNavigation();
 
-//    if(props.data) {
-//      setSelectedValue(props.data[0].name);
-//    }
-
     const onValueChange = (itemValue, itemIndex) => {
       setSelectedValue(itemValue);
     };
+
+     useEffect(() => {
+          if (props.data) {
+            setSelectedValue(props.data[0]);
+
+          }
+   
+    }, [props.data]);
 
     return (
       <View style={styles.container}>
