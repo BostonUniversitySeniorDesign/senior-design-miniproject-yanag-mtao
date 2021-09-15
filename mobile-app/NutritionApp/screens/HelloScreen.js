@@ -1,6 +1,8 @@
 import React from 'react';
 import { Alert, Button, ImageBackground, StyleSheet, View } from 'react-native';
 import LoginButton from "../components/loginButton";
+import GoogleUserSignIn from '../components/googleUserSignIn';
+
 
 function HelloScreen({ navigation, route }) {
     return (
@@ -9,7 +11,7 @@ function HelloScreen({ navigation, route }) {
             source={require("../assets/Foodbackground.png")}
         >
             <View style={styles.loginButton}>
-            <LoginButton onPress={() => navigation.navigate("Home")}/>
+            <GoogleUserSignIn/>
             </View>
         </ImageBackground>
     );

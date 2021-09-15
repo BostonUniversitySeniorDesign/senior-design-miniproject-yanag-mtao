@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button,ImageBackground, Modal, Pressable} from 'react-native';
 
 import BarCodeScreen from './barCodeScreen';
-import {AuthContext} from '../auth';
+//import {AuthContext} from '../auth';
 import AddFoodButton from "../components/addFoodButton";
 import LogoutButton from '../components/logoutButton';
 import RecipePicker from '../components/recipePicker';
@@ -13,7 +13,6 @@ import NewRecipeModal from '../components/newRecipeModal';
 import firebase from 'firebase/app';
 
 const dbh = firebase.firestore();
-const ref = dbh.collection('recipes');
 
 
 export default function HomeScreen({ navigation, route }) {
@@ -21,11 +20,16 @@ export default function HomeScreen({ navigation, route }) {
   const [ selectedRecipe, setSelectedRecipe] = useState({});
   const [ recipes, setRecipes]               = useState([]);
 
+  let user = firebase.auth().currentUser;
+  const ref = dbh.collection('recipes');
+
+  console.log("homescreeen user", user);
+
   // update ingredients from database as needed
   useEffect(() => {
       ref
+        .where("userId", "==", user.uid)
         .onSnapshot((querySnapshot) => {
-          var cities = [];
           const rs = querySnapshot.docs.map(doc => { return {id: doc.id, name: doc.data().name};});
           setRecipes(rs);
         });
@@ -36,8 +40,20 @@ export default function HomeScreen({ navigation, route }) {
    const createNewRecipe = (name) => {
       ref.add({
         name: name,
+        userId: user.uid,
         ingredients: [],
       });
+   };
+
+   const signOut = () => {
+     firebase.auth().signOut().then(() => {
+          // Sign-out successful.
+          console.log("Sign out successful");
+        }).catch((error) => {
+          // An error happened.
+          alert("Unable to sign out");
+        });
+
    };
 
 
@@ -48,11 +64,11 @@ export default function HomeScreen({ navigation, route }) {
       source={require("../assets/Foodbackground.png")}
     >
     <View style={styles.container}>
-      <Text style={styles.contentText}> Welcome [UserName]!</Text>
+      <Text style={styles.contentText}> Welcome {user.displayName}!</Text>
       <RecipePicker data={recipes} />
        <NewRecipeModal createNewRecipe={createNewRecipe}/>
 
-      <LogoutButton onPress= {()=>{}}/>
+      <LogoutButton onPress= {signOut}/>
       <AddFoodButton onPress={() => navigation.navigate('NewRecipe')}/>
 
       <StatusBar style="auto" />

@@ -22,7 +22,7 @@ export default function RecipePicker(props) {
             setSelectedValue(props.data[0]);
 
           }
-   
+
     }, [props.data]);
 
     return (
