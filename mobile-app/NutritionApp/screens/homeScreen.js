@@ -27,9 +27,7 @@ export default function HomeScreen({ navigation, route }) {
         .onSnapshot((querySnapshot) => {
           var cities = [];
           const rs = querySnapshot.docs.map(doc => { return {id: doc.id, name: doc.data().name};});
-          console.log("got recipes? ", rs);
           setRecipes(rs);
-
         });
 
     }, []);

@@ -7,7 +7,6 @@ import axios from 'axios';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 
-import AddFoodButton from "../components/addFoodButton";
 import TrashButton from '../components/trashButton';
 import IngredientTable from '../components/ingredientTable';
 import NewIngredientModal from '../components/newIngredientModal';
@@ -20,9 +19,10 @@ const recipes = [];
 
 
 export default function NewRecipeScreen({ navigation, route, props}) {
-  const [ loading, setLoading ]             = useState(true);
-  const [ recipe, setRecipe ]               = useState({});
-  const [ totalCalories, setTotalCalories ] = useState(0);
+  const [ loading, setLoading ]                     = useState(true);
+  const [ recipe, setRecipe ]                       = useState({});
+  const [ barCodeIngredient, setBarCodeIngredient ] = useState({});
+  const [ totalCalories, setTotalCalories ]         = useState(0);
 
   const dbh = firebase.firestore();
   const ref = dbh.collection('recipes').doc(route.params.recipeId);
@@ -94,13 +94,13 @@ export default function NewRecipeScreen({ navigation, route, props}) {
             }
           }
           ingredient = {
-            'name' : food.lowercaseDescription,
-            'servings': 1,
+            'name' :                food.lowercaseDescription,
+            'servings':             1,
             "calories per serving": cals,
           };
 
           // update current state to show new ingredient
-          addIngredient(ingredient);
+          setBarCodeIngredient({...ingredient});
 
         }
       } catch (error) {
@@ -171,9 +171,11 @@ export default function NewRecipeScreen({ navigation, route, props}) {
             title="Delete Recipe"
             onPress={deleteRecipe}
           />
-          <NewIngredientModal createNewIngredient={addIngredient}/>
+          <NewIngredientModal
+            barCodeIngredient={barCodeIngredient}
+            createNewIngredient={addIngredient}
+          />
 
-          <AddFoodButton onPress={() => navigation.navigate('BarCode')}/>
         </View>
         </>
         )

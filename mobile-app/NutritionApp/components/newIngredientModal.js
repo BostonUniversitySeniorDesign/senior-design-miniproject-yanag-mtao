@@ -1,7 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { StyleSheet, Text, TextInput, View, SafeAreaView, Button, Modal, Pressable} from 'react-native';
+import { StyleSheet, Text, TextInput, View,
+         SafeAreaView, Button, Modal, Pressable} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+import AddFoodButton from "./addFoodButton";
 
 
 
@@ -13,12 +17,16 @@ import { StyleSheet, Text, TextInput, View, SafeAreaView, Button, Modal, Pressab
 
 
 export default function NewIngredientModal(props) {
-   const [nameText, onChangeNameText]         = React.useState("");
-   const [servingsText, onChangeServingsText] = React.useState("1");
-   const [caloriesText, onChangeCaloriesText] = React.useState("0");
-   const [modalVisible, setModalVisible]      = useState(false);
+  console.log("from modal, barcode: ", props.barCodeIngredient);
+  // set data received from barcode
+
+    var [nameText, onChangeNameText]         = React.useState("");
+    var [servingsText, onChangeServingsText] = React.useState("1");
+    var [caloriesText, onChangeCaloriesText] = React.useState("0");
+    var [modalVisible, setModalVisible]      = useState(false);
 
 
+  const navigation = useNavigation();
 
   const newIngredient = () => {
     setModalVisible(false);
@@ -30,6 +38,22 @@ export default function NewIngredientModal(props) {
     });
   };
 
+  useEffect(() => {
+    if (props.barCodeIngredient?.name) {
+        setModalVisible(true);
+        onChangeNameText(props.barCodeIngredient.name);
+        onChangeServingsText(props.barCodeIngredient.servings.toString());
+        onChangeCaloriesText(props.barCodeIngredient['calories per serving'].toString());
+    }
+
+  }, [props.barCodeIngredient]);
+
+  const cancel = () => {
+    onChangeNameText("");
+    onChangeServingsText("1");
+    onChangeCaloriesText("0");
+    setModalVisible(!modalVisible);
+  };
 
   return(
       <View>
@@ -45,6 +69,12 @@ export default function NewIngredientModal(props) {
            <View >
              <View style={styles.modalView}>
                <SafeAreaView>
+               <Pressable
+                 style={[styles.button, styles.buttonClose]}
+                 onPress={() => {setModalVisible(!modalVisible); navigation.navigate('BarCode');}}
+               >
+                 <Text style={styles.textStyle}>Get data from barcode</Text>
+               </Pressable>
                <Text > Enter the name of your ingredient:</Text>
                <TextInput
                  style={styles.input}
@@ -56,7 +86,6 @@ export default function NewIngredientModal(props) {
                  style={styles.input}
                  onChangeText={onChangeServingsText}
                  value={servingsText}
-                 placeholder="useless placeholder"
                  keyboardType="numeric"
                />
                <Text > Enter the calories per serving:</Text>
@@ -64,13 +93,15 @@ export default function NewIngredientModal(props) {
                   style={styles.input}
                   onChangeText={onChangeCaloriesText}
                   value={caloriesText}
-                  placeholder="useless placeholder"
                   keyboardType="numeric"
                 />
                </SafeAreaView>
+
+
+
               <Pressable
                 style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={cancel}
               >
                 <Text style={styles.textStyle}>Cancel</Text>
               </Pressable>
@@ -86,14 +117,8 @@ export default function NewIngredientModal(props) {
          </Modal>
 
 
-
-   <Pressable
-           style={[styles.button, styles.buttonOpen]}
-           onPress={() => setModalVisible(true)}
-         >
-           <Text style={styles.textStyle}>Add New Ingredient Manually</Text>
-         </Pressable>
-              </View>
+         <AddFoodButton onPress={() => setModalVisible(true)}/>
+         </View>
 
    );
 

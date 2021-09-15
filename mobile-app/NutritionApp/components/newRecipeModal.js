@@ -13,8 +13,8 @@ import { StyleSheet, Text, TextInput, View, SafeAreaView, Button, Modal, Pressab
 
 
 export default function NewRecipeModal(props) {
-      const [text, onChangeText] = React.useState("");
-     const [modalVisible, setModalVisible]     = useState(false);
+   const [text, onChangeText] = React.useState("");
+   const [modalVisible, setModalVisible]     = useState(false);
 
 
 
@@ -48,7 +48,10 @@ export default function NewRecipeModal(props) {
                </SafeAreaView>
               <Pressable
                 style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={() => {
+                  onChangeText("");
+                  setModalVisible(!modalVisible);
+                }}
               >
                 <Text style={styles.textStyle}>Cancel</Text>
               </Pressable>
