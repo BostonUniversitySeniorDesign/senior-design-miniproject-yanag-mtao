@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, ImageBackground } from 'react-native';
 import axios from 'axios';
 
 
@@ -8,58 +8,13 @@ import * as firebase from 'firebase';
 import 'firebase/firestore';
 
 import AddFoodButton from "../components/addFoodButton";
+import TrashButton from '../components/trashButton';
+import IngredientTable from '../components/ingredientTable';
+import { marginLeft } from 'styled-system';
 
+const dbh = firebase.firestore();
 
-
-
-const Ingredients = (props) => {
-  const renderRow = (datum, i) => {
-      return (
-          <View key={i} style={{ flex: 1, alignSelf: 'stretch', flexDirection: 'row' }}>
-              <View style={{ flex: 1, alignSelf: 'stretch' }}>
-                <Text>
-                  {datum.name}
-                </Text>
-              </View>
-              <View style={{ flex: 1, alignSelf: 'stretch' }}>
-                <Text>
-                  {datum.servings}
-                </Text>
-              </View>
-              <View style={{ flex: 1, alignSelf: 'stretch' }}>
-                <Text>
-                  {datum["calories per serving"]}
-                </Text>
-              </View>
-              <View style={{ flex: 1, alignSelf: 'stretch' }}>
-                <Text>
-                  {datum["calories per serving"]}
-                </Text>
-              </View>
-              <Button
-                title="del"
-                onPress={() => props.deleteIngredient(i)}
-              />
-          </View>
-      );
-  };
-
-
-  if (props.loading) {
-    return <Text> Loading ingredients...</Text>
-  }
-
-  return (
-    <>
-    <Text>{props.recipe.name}</Text>
-    {
-      props.recipe.ingredients.map((datum, i) => { // This will render a row for each data element.
-        return renderRow(datum, i);
-      })
-    }
-    </>
-  );
-};
+const recipes = [];
 
 
 export default function NewRecipeScreen({ navigation, route, props}) {
@@ -68,7 +23,7 @@ export default function NewRecipeScreen({ navigation, route, props}) {
   const [ totalCalories, setTotalCalories ] = useState(0);
 
   const dbh = firebase.firestore();
-  const ref = dbh.collection('recipes').doc("w4NgFrIpJ59ccPJv3lDw");
+  const ref = dbh.collection('recipes').doc(route.params.recipeId);
 
   // update ingredients from database as needed
   useEffect(() => {
@@ -77,6 +32,7 @@ export default function NewRecipeScreen({ navigation, route, props}) {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
         setRecipe(doc.data());
+        console.log("recipe: ", recipe);
         if (loading) {
           console.log("No longer loading");
           setLoading(false);
@@ -87,13 +43,13 @@ export default function NewRecipeScreen({ navigation, route, props}) {
 
   // Update total calories every time ingredients get updated
   useEffect(() => {
-    if (recipe.ingredients) {
+    if (recipe?.ingredients) {
       var totalCals = 0;
         recipe.ingredients.forEach(el => {totalCals += el["calories per serving"]*el.servings});
         setTotalCalories(totalCals);
     }
-
   }, [recipe]);
+
 
   // Handle getting barcode data from barcode scanner
   React.useEffect(() => {
@@ -135,10 +91,14 @@ export default function NewRecipeScreen({ navigation, route, props}) {
           };
 
           // update current state to show new ingredient
-          setRecipe({...recipe, "ingredients": [...recipe.ingredients, ingredient]});
+          setRecipe({
+            ...recipe,
+            "ingredients": [...recipe.ingredients, ingredient]
+          });
         }
       } catch (error) {
         alert(error.message);
+        console.error(error.message);
       }
     };
 
@@ -146,14 +106,10 @@ export default function NewRecipeScreen({ navigation, route, props}) {
     try {
       await ref.update(recipe);
       alert("Successfully saved recipe!");
-
     }
     catch (error) {
       alert(error.message);
     }
-
-
-
   };
 
   const deleteIngredient = (idx) => {
@@ -169,25 +125,65 @@ export default function NewRecipeScreen({ navigation, route, props}) {
     });
   }
 
+
+
+
   return (
-    <View style={styles.container}>
-          <Text>Creating New Recipe</Text>
-          <Ingredients recipe={recipe} loading={loading} deleteIngredient={deleteIngredient}/>
-          <Text>Total Calories: {totalCalories}</Text>
+    <ImageBackground
+            style={styles.background}
+            source={require("../assets/Foodbackground.png")}
+    >
+      {loading ?
+        (<Text style={styles.contentText}>Loading ingredients...</Text>) :
+        (
+        <>
+        <IngredientTable
+          colNames={['name', 'servings', 'calories per serving', '']}
+          tableData={recipe.ingredients}
+          deleteIngredient={deleteIngredient}
+        />
+         <Text style={styles.contentText}> Total Calories: {totalCalories}</Text>
           <Button
             title="Save"
             onPress={saveRecipe}
           />
           <AddFoodButton onPress={() => navigation.navigate('BarCode')}/>
-    </View>
+        </>
+        )
+
+      }
+
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "center",
+    alignItems: "center"
+},
+  baseText: {
+    fontSize: 50,
+    fontWeight: 'bold',
+    marginLeft: 10,
+    color: "#FF9700"
   },
+  contentText: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginLeft: 20,
+    marginRight: 5,
+    marginTop: 5,
+    color: "#FFDB5F"
+  },
+  cover: {
+    marginTop: 10,
+    width: 350,
+    height: 650,
+    borderRadius: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: 'rgba(52, 52, 52, 0.4)'
+},
 });

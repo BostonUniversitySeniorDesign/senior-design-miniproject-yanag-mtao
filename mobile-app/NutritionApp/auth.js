@@ -12,6 +12,8 @@ if (!firebase.apps.length) {
      authDomain: 'nutritionapp-779c5.firebaseapp.com',
      projectId:  'nutritionapp-779c5'
    });
+     firebase.firestore().settings({ experimentalForceLongPolling: true });
+
 }else {
    firebase.app(); // if already initialized, use that one
 }
@@ -64,7 +66,7 @@ const AuthProvider = ({ children }) => {
       console.log("loading is now ", loading);
     }
 
-    setToken({'token': 'token'});
+//    setToken({'token': 'token'});
 
 
   });
