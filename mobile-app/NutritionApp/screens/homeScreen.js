@@ -47,16 +47,11 @@ export default function HomeScreen({ navigation, route }) {
       style={styles.background}
       source={require("../assets/Foodbackground.png")}
     >
-    <View style={styles.container}>
-      <Text style={styles.contentText}> Welcome [UserName]!</Text>
+      <Text style={styles.contentText}> Welcome [User]!</Text>
       <RecipePicker data={recipes} />
-       <NewRecipeModal createNewRecipe={createNewRecipe}/>
-
+      <NewRecipeModal createNewRecipe={createNewRecipe}/>
       <LogoutButton onPress= {()=>{}}/>
-      <AddFoodButton onPress={() => navigation.navigate('NewRecipe')}/>
-
       <StatusBar style="auto" />
-    </View>
     </ImageBackground>
   );
 }
@@ -73,15 +68,9 @@ const styles = StyleSheet.create({
   contentText: {
     fontSize: 30,
     fontWeight: 'bold',
-    marginLeft: 10,
+    marginLeft: 0,
     marginRight: 5,
-    marginTop: 50,
+    marginTop: 520,
     color: "#FFFFFF"
-  },
-   container: {
-      flex: 1,
-      paddingTop: 40,
-      alignItems: "center",
-
-    },
+  }
 });

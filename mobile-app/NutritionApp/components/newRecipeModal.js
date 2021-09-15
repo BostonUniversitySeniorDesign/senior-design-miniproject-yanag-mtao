@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 
 import { StyleSheet, Text, TextInput, View, SafeAreaView, Button, Modal, Pressable} from 'react-native';
+import { paddingTop } from 'styled-system';
 
-
+import AddFoodButton from "../components/addFoodButton";
 
 
 
@@ -67,14 +68,8 @@ export default function NewRecipeModal(props) {
          </Modal>
 
 
-
-   <Pressable
-           style={[styles.button, styles.buttonOpen]}
-           onPress={() => setModalVisible(true)}
-         >
-           <Text style={styles.textStyle}>Create New Recipe</Text>
-         </Pressable>
-              </View>
+        <AddFoodButton onPress={() => setModalVisible(true)}/>
+        </View>
 
    );
 
@@ -115,7 +110,7 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 20,
         padding: 10,
-        elevation: 2
+        elevation: 2,
       },
       buttonOpen: {
         backgroundColor: "#F194FF",

@@ -29,22 +29,23 @@ export default function RecipePicker(props) {
       <View style={styles.container}>
         <Picker
           selectedValue={selectedValue}
-          style={{ height: 50, width: 250, color: 'black', }}
+          style={{ height: 50, width: 250, color: 'white', fontWeight: 'bold', fontSize: 20}}
           onValueChange={onValueChange}
         >
         {
           props.data.map(d => <Picker.Item key={d.id} label={d.name} value={d} />)
         }
         </Picker>
+        <View style={styles.button}>
         <Button
           disabled={props.data.length == 0}
           title="Go to recipe"
-          style={styles.button}
           onPress={() =>
             navigation.navigate('NewRecipe',
             {recipeId: selectedValue.id, recipeName: selectedValue.name})
           }
         />
+        </View>
       </View>
     );
 
@@ -54,8 +55,12 @@ export default function RecipePicker(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 40,
-    alignItems: "center",
-
+    left: 100
+  },
+    button:{
+      color: "#fc5c65",
+      width:"50%",
+      bottom: 0
   }
+
 });
