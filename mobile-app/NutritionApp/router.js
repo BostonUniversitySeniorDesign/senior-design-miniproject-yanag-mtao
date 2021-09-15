@@ -1,33 +1,56 @@
-import React, {useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {Text} from 'react-native';
-import {AuthContext} from './auth';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import firebase from 'firebase';
 
 
 import HomeScreen from './screens/homeScreen';
-import LoginScreen from './screens/loginScreen';
 import BarCodeScreen from './screens/barCodeScreen';
 import NewRecipeScreen from './screens/newRecipeScreen';
 import HelloScreen from './screens/HelloScreen';
 
 const Stack = createNativeStackNavigator();
 
+
+if (!firebase.apps.length) {
+   firebase.initializeApp({
+     apiKey:     'AIzaSyC1NMYu8rodDtTIVH2i0HjCoJ1utX116iQ',
+     authDomain: 'nutritionapp-779c5.firebaseapp.com',
+     projectId:  'nutritionapp-779c5'
+   });
+     firebase.firestore().settings({ experimentalForceLongPolling: true });
+
+}else {
+   firebase.app(); // if already initialized, use that one
+}
+
+
+
 export const AppRouter = () => {
-  const { authData, loading } = useContext(AuthContext);
-  console.log("routerrrr");
-//  if (loading) {
-//    return <Text>Loading</Text>;
-//  };
+    const [user, setUser] = useState();
+
+
+  firebase.auth().onAuthStateChanged(async (user) => {
+      if (user != null) {
+        console.log('We are authenticated now! For sure!');
+        console.log(user);
+      }
+      else {
+        console.log("user is null");
+      }
+      setUser(user);
+  });
+
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {authData.token ? (
+        {!user? (
           <>
-            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Login" component={HelloScreen} />
           </>
         ) : (
         <>
