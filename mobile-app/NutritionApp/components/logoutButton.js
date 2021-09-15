@@ -15,7 +15,7 @@ const LogoutButton = ({ onPress }) => (
         justifyContent: 'center',
         width: 70,
         position: 'absolute',
-        bottom: 10,
+        bottom: 20,
         left: 10,
         height: 70,
         backgroundColor: '#fff',

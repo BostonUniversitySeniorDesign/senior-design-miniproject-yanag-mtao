@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Picker, Text, View, Button,ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { alignItems, paddingTop } from 'styled-system';
 
 
 
@@ -29,7 +30,7 @@ export default function RecipePicker(props) {
       <View style={styles.container}>
         <Picker
           selectedValue={selectedValue}
-          style={{ height: 50, width: 250, color: 'white', fontWeight: 'bold', fontSize: 20}}
+          style={{ height: 50, width: 250, color: 'black', fontWeight: 'bold', fontSize: 20}}
           onValueChange={onValueChange}
         >
         {
@@ -55,12 +56,14 @@ export default function RecipePicker(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    left: 100
+    left: 100,
+    alignItems: "center",
+    paddingTop: 80,
+    width: "50%"
   },
     button:{
-      color: "#fc5c65",
-      width:"50%",
-      bottom: 0
+      paddingTop: 100,
+      color: "#fc5c65"
   }
 
 });

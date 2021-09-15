@@ -15,7 +15,7 @@ const AddFoodButton = ({ onPress }) => (
         justifyContent: 'center',
         width: 70,
         position: 'absolute',
-        bottom: 10,
+        bottom: 20,
         right: 10,
         height: 70,
         backgroundColor: '#fff',
@@ -23,7 +23,7 @@ const AddFoodButton = ({ onPress }) => (
       }}
       onPress={onPress}
     >
-      <Icon name='plus' size={30} color='#fc5c65' />
+      <Icon name='plus' size={30} color='black' />
 
     </TouchableOpacity>
 );

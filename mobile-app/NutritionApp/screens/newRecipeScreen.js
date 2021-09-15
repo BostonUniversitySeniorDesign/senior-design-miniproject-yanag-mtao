@@ -11,7 +11,7 @@ import TrashButton from '../components/trashButton';
 import IngredientTable from '../components/ingredientTable';
 import NewIngredientModal from '../components/newIngredientModal';
 
-import { justifyContent, marginLeft } from 'styled-system';
+import { justifyContent, marginLeft, paddingBottom } from 'styled-system';
 
 const dbh = firebase.firestore();
 
@@ -157,7 +157,7 @@ export default function NewRecipeScreen({ navigation, route, props}) {
         (
         <>
         <IngredientTable
-          colNames={['name', 'servings', 'calories per serving', '']}
+          colNames={['NAME', 'SERVINGS', 'CAL PER SERVING', '']}
           tableData={recipe.ingredients}
           deleteIngredient={deleteIngredient}
         />
@@ -167,6 +167,8 @@ export default function NewRecipeScreen({ navigation, route, props}) {
             title="Save"
             onPress={saveRecipe}
           />
+          </View>
+          <View style={styles.container}>
           <Button
             title="Delete Recipe"
             onPress={deleteRecipe}
@@ -198,10 +200,11 @@ const styles = StyleSheet.create({
   contentText: {
     fontSize: 25,
     fontWeight: 'bold',
-    marginLeft: 20,
+    marginLeft: 10,
     marginRight: 5,
     marginTop: 5,
-    color: "#FFDB5F"
+    marginBottom: 20,
+    color: "black"
   },
   cover: {
     marginTop: 10,
@@ -214,6 +217,7 @@ const styles = StyleSheet.create({
 },
  container: {
       marginLeft: 20,
-      width:"50%"
+      width:"50%",
+      paddingBottom: 20
     },
 });
