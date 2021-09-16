@@ -9,7 +9,21 @@ import RecipePicker from '../components/recipePicker';
 import NewRecipeModal from '../components/newRecipeModal';
 
 
-import firebase from 'firebase/app';
+import firebase from 'firebase';
+
+
+if (!firebase.apps.length) {
+   firebase.initializeApp({
+     apiKey:     'AIzaSyC1NMYu8rodDtTIVH2i0HjCoJ1utX116iQ',
+     authDomain: 'nutritionapp-779c5.firebaseapp.com',
+     projectId:  'nutritionapp-779c5'
+   });
+     firebase.firestore().settings({ experimentalForceLongPolling: true });
+
+}else {
+   firebase.app(); // if already initialized, use that one
+}
+
 
 const dbh = firebase.firestore();
 
