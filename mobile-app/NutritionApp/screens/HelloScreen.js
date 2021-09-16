@@ -1,5 +1,7 @@
 import React from 'react';
 import { Alert, Button, ImageBackground, StyleSheet, View } from 'react-native';
+import { ImageBackground, StyleSheet, View, Text } from 'react-native';
+import LoginButton from "../components/loginButton";
 import GoogleUserSignIn from '../components/googleUserSignIn';
 
 
@@ -9,8 +11,12 @@ function HelloScreen({ navigation, route }) {
             style={styles.background}
             source={require("../assets/Foodbackground.png")}
         >
+            <View style={styles.welcomeContainer}>
+            <Text style={styles.titleText}> Welcome</Text>
+            <Text style={styles.titleText}> Login to get started!</Text>
+            </View>
             <View style={styles.loginButton}>
-            <GoogleUserSignIn/>
+              <GoogleUserSignIn/>
             </View>
         </ImageBackground>
     );
@@ -22,14 +28,25 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
+    welcomeContainer: {
+          flex: 3,
+          width:350,
+          justifyContent: "center",
+          alignItems: "center"
+    },
     loginButton: {
-        marginTop: 550,
+        flex: 2,
+        marginTop: 50,
         width: 250,
         height: 70,
-        borderRadius: 100,
-        backgroundColor: "#fc5c65",
-        justifyContent: "center",
         alignItems: "center"
     },
+    titleText:{
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginLeft: 0,
+        marginRight: 5,
+        color: "black",
+      },
 })
 export default HelloScreen;

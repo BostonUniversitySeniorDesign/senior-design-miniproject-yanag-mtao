@@ -11,32 +11,34 @@ import { alignItems, paddingTop } from 'styled-system';
 
 
 export default function RecipePicker(props) {
-    const [selectedValue, setSelectedValue] = useState();
-    const navigation = useNavigation();
+  const [selectedValue, setSelectedValue] = useState();
+  const navigation = useNavigation();
 
-    const onValueChange = (itemValue, itemIndex) => {
-      setSelectedValue(itemValue);
-    };
+  const onValueChange = (itemValue, itemIndex) => {
+    setSelectedValue(itemValue);
+  };
 
-     useEffect(() => {
-          if (props.data) {
-            setSelectedValue(props.data[0]);
+  useEffect(() => {
+    if (props.data) {
+      setSelectedValue(props.data[0]);
+    }
 
-          }
-
-    }, [props.data]);
+  }, [props.data]);
 
     return (
       <View style={styles.container}>
-        <Picker
-          selectedValue={selectedValue}
-          style={{ height: 50, width: 250, color: 'black', fontWeight: 'bold', fontSize: 20}}
-          onValueChange={onValueChange}
-        >
-        {
-          props.data.map(d => <Picker.Item key={d.id} label={d.name} value={d} />)
-        }
-        </Picker>
+
+        {props.data?.length  ?
+          (<Picker
+            selectedValue={selectedValue}
+            style={{ height: 50, width: 250, color: 'black', fontWeight: 'bold', fontSize: 20}}
+            onValueChange={onValueChange}
+          >
+          {
+            props.data.map(d => <Picker.Item key={d.id} label={d.name} value={d} />)
+          }
+          </Picker>) :
+          (<Text> You have no saved recipes. Create a new one!</Text>)}
         <View style={styles.button}>
         <Button
           disabled={props.data.length == 0}

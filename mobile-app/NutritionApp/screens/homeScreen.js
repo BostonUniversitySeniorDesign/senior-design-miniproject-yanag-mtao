@@ -76,7 +76,7 @@ export default function HomeScreen({ navigation, route }) {
       style={styles.background}
       source={require("../assets/Foodbackground.png")}
     >
-      <Text style={styles.titleText}> Welcome [User]!</Text>
+      <Text style={styles.titleText}> Welcome {user.displayName}!</Text>
       <Text style={styles.contentText}> Select Your Recipe:</Text>
       <RecipePicker data={recipes} />
       <NewRecipeModal createNewRecipe={createNewRecipe}/>
