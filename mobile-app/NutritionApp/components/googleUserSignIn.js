@@ -23,7 +23,7 @@ export default function GoogleUserSignIn() {
     disabled={!request}
     onPress={() => {promptAsync();}}
     >
-      <Icon name='login' size={30} color='#FFFFFF' />
+      <Icon name='login' size={30} color='black' />
 
     </TouchableOpacity>
 );

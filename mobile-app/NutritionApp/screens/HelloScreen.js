@@ -1,7 +1,5 @@
 import React from 'react';
-import { Alert, Button, ImageBackground, StyleSheet, View } from 'react-native';
-import { ImageBackground, StyleSheet, View, Text } from 'react-native';
-import LoginButton from "../components/loginButton";
+import { Alert, Button, ImageBackground, StyleSheet, View, Text } from 'react-native';
 import GoogleUserSignIn from '../components/googleUserSignIn';
 
 
