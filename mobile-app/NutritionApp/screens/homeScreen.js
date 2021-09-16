@@ -32,6 +32,7 @@ export default function HomeScreen({ navigation, route }) {
 //  const { authData, signOut }                = useContext(AuthContext);
   const [ selectedRecipe, setSelectedRecipe] = useState({});
   const [ recipes, setRecipes]               = useState([]);
+  const [ loading, setLoading]               = useState(true);
 
   let user = firebase.auth().currentUser;
   const ref = dbh.collection('recipes');
@@ -44,6 +45,9 @@ export default function HomeScreen({ navigation, route }) {
         .where("userId", "==", user.uid)
         .onSnapshot((querySnapshot) => {
           const rs = querySnapshot.docs.map(doc => { return {id: doc.id, name: doc.data().name};});
+          if (loading) {
+            setLoading(false);
+          }
           setRecipes(rs);
         });
 
@@ -78,7 +82,9 @@ export default function HomeScreen({ navigation, route }) {
     >
       <Text style={styles.titleText}> Welcome {user.displayName}!</Text>
       <Text style={styles.contentText}> Select Your Recipe:</Text>
-      <RecipePicker data={recipes} />
+      {loading ? (<Text> Loading... </Text>) :
+      (<RecipePicker data={recipes} />)
+      }
       <NewRecipeModal createNewRecipe={createNewRecipe}/>
       <LogoutButton onPress= {signOut}/>
       <StatusBar style="auto" />
