@@ -31,6 +31,8 @@ export default function NewIngredientModal(props) {
   const newIngredient = () => {
     setModalVisible(false);
     onChangeNameText("");
+    onChangeServingsText("1");
+    onChangeCaloriesText("0");
     props.createNewIngredient({
       name:                   nameText,
       servings:               parseInt(servingsText),
