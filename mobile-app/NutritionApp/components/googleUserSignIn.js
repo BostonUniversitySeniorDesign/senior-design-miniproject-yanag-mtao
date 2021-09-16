@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
-import { Text, Button } from 'react-native';
+import { Text, Button, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/Entypo';
 
 import firebase from 'firebase';
 import { ResponseType } from 'expo-auth-session';
@@ -16,6 +17,16 @@ export default function GoogleUserSignIn() {
       iosClientId: '377513650386-5rass0tt9ao84lp88s64t4mkbc4g24qk.apps.googleusercontent.com',
     },
   );
+
+  const LoginButton = ({ onPress }) => (
+    <TouchableOpacity
+    disabled={!request}
+    onPress={() => {promptAsync();}}
+    >
+      <Icon name='login' size={30} color='#FFFFFF' />
+
+    </TouchableOpacity>
+);
 
 
 
@@ -38,9 +49,8 @@ export default function GoogleUserSignIn() {
       }
     }, [response]);
 
-    return (<Button
-     title="Log In With Google"
-     disabled={!request}
-     onPress={() => {promptAsync();}} />);
+    return (
+
+    <LoginButton />);
 
  }
