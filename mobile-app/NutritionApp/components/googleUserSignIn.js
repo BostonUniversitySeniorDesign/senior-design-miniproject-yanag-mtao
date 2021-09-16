@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { Text, Button, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import firebase from 'firebase';
 import { ResponseType } from 'expo-auth-session';
@@ -23,7 +23,7 @@ export default function GoogleUserSignIn() {
     disabled={!request}
     onPress={() => {promptAsync();}}
     >
-      <Icon name='login' size={30} color='black' />
+      <Icon name='google' size={50} color='black' />
 
     </TouchableOpacity>
 );

@@ -11,11 +11,12 @@ function HelloScreen({ navigation, route }) {
         >
             <View style={styles.welcomeContainer}>
             <Text style={styles.titleText}> Welcome</Text>
-            <Text style={styles.titleText}> Login to get started!</Text>
+            <Text style={styles.titleText}> Login To Get Started!</Text>
             </View>
             <View style={styles.loginButton}>
               <GoogleUserSignIn/>
             </View>
+            <Text style={styles.logintext}> -Login With Google-</Text>
         </ImageBackground>
     );
 }
@@ -42,9 +43,13 @@ const styles = StyleSheet.create({
     titleText:{
         fontSize: 30,
         fontWeight: 'bold',
+        top: 70,
         marginLeft: 0,
         marginRight: 5,
         color: "black",
       },
+      logintext:{
+          bottom: 180
+      }
 })
 export default HelloScreen;
