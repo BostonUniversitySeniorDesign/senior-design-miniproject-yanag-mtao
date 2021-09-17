@@ -1,23 +1,22 @@
-- name: Expo GitHub Action
-  # You may pin to the exact commit or the version.
-  # uses: expo/expo-github-action@84e06132b21f3af2525ee4f5fcc727a2279adb02
-  uses: expo/expo-github-action@5.1.1
-  with:
-    # The Expo CLI version to install. (use any semver/dist-tag available)
-    expo-version: # optional, default is latest
-    # Your Expo username, for authentication.
-    expo-username: ${{ secrets.EXPO_USERNAME }}
-    # Your Expo password, for authentication. (use with secrets)
-    expo-password: ${{ secrets.EXPO_PASSWORD }}
-    # The package manager used to install the Expo CLI. (can be yarn or npm)
-    expo-packager: # optional, default is yarn
-    # If Expo should fix the default watchers limit, helps with ENOSPC errors. (can be true or false)
-    expo-patch-watchers: # optional, default is true
-    # If Expo should be stored in the GitHub Actions cache (can be true or false)
-    expo-cache: # optional
-    # A custom remote cache key to use (best to let GitHub Actions handle it)
-    expo-cache-key: # optional
-
+# - name: Expo GitHub Action
+#   # You may pin to the exact commit or the version.
+#   # uses: expo/expo-github-action@84e06132b21f3af2525ee4f5fcc727a2279adb02
+#   uses: expo/expo-github-action@5.1.1
+#   with:
+#     # The Expo CLI version to install. (use any semver/dist-tag available)
+#     expo-version: # optional, default is latest
+#     # Your Expo username, for authentication.
+#     expo-username: ${{ secrets.EXPO_USERNAME }}
+#     # Your Expo password, for authentication. (use with secrets)
+#     expo-password: ${{ secrets.EXPO_PASSWORD }}
+#     # The package manager used to install the Expo CLI. (can be yarn or npm)
+#     expo-packager: # optional, default is yarn
+#     # If Expo should fix the default watchers limit, helps with ENOSPC errors. (can be true or false)
+#     expo-patch-watchers: # optional, default is true
+#     # If Expo should be stored in the GitHub Actions cache (can be true or false)
+#     expo-cache: # optional
+#     # A custom remote cache key to use (best to let GitHub Actions handle it)
+#     expo-cache-key: # optional
 
 name: Expo Publish
 on:
