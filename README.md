@@ -2,7 +2,7 @@
 
 This is an expo-managed React Native mobile app with a Google Firebase backend that lets a user create and save recipes. Nutrition information for ingredients can be inputted manually, or populated automatically by scanning a barcode, which then is the input to an FDC API query.
 
-This app is published at https://expo.dev/@yanag/NutritionApp. Scanning the QR code using the Expo Go app will download it and run it on your phone.
+This app is published at https://expo.dev/@yanag/NutritionApp. Scanning the QR code using the Expo Go app will download it and run it on your phone. The app gets re-published at that link with every push to main, using Google actions.
 
 Note: This app was only tested on an expo-managed workflow (ie through the Expo Go app) on an Android phone
 
