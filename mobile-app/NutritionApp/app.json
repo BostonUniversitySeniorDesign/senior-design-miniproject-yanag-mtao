@@ -38,6 +38,6 @@
       "@react-native-firebase/perf",
       "@react-native-firebase/crashlytics"
     ],
-    "description": ""
+    "description": "Nutrition app for senior design mini project Fall 2021"
   }
 }

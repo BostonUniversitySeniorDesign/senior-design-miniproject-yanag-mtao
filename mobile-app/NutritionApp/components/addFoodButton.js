@@ -4,8 +4,6 @@ import { TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-
-
 const AddFoodButton = ({ onPress }) => (
     <TouchableOpacity
       style={{

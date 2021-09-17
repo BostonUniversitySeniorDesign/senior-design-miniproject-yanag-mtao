@@ -35,9 +35,9 @@ export default function RecipePicker(props) {
              fontWeight: 'bold', fontSize: 25, transform: [{ scaleX: 1.6 }, { scaleY: 1.6 }]}}
             onValueChange={onValueChange}
           >
-          {
-            props.data.map(d => <Picker.Item textStyle={{fontSize:25}} key={d.id} label={d.name} value={d} />)
-          }
+            {
+              props.data.map(d => <Picker.Item textStyle={{fontSize:25}} key={d.id} label={d.name} value={d} />)
+            }
           </Picker>) :
           (<Text> You have no saved recipes. Create a new one!</Text>)}
         <View style={{paddingTop: 20}}>
@@ -49,7 +49,7 @@ export default function RecipePicker(props) {
             {recipeId: selectedValue.id, recipeName: selectedValue.name})
           }
         >
-        <Text style={{fontSize: 22}}>Go to recipe</Text>
+          <Text style={{fontSize: 22}}>Go to recipe</Text>
         </Pressable>
         </View>
       </View>

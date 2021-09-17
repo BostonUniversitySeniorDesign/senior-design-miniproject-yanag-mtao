@@ -3,7 +3,6 @@ import { Text, Button, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Constants from 'expo-constants';
 
-
 import firebase from 'firebase';
 import { ResponseType } from 'expo-auth-session';
 import * as Google from 'expo-auth-session/providers/google';

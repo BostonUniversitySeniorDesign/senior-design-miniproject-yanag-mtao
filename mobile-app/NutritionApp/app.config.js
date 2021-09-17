@@ -2,6 +2,7 @@ import 'dotenv/config'
 
 
 export default ({config}) => {
+
   const appConfig = ({
     ...config,
     extra: {
