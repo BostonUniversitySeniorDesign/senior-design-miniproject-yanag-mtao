@@ -32,7 +32,7 @@ export default function NewIngredientModal(props) {
     onChangeCaloriesText("0");
     props.createNewIngredient({
       name:                   nameText,
-      servings:               parseInt(servingsText),
+      servings:               parseFloat(servingsText),
       "calories per serving": parseInt(caloriesText),
     });
   };
