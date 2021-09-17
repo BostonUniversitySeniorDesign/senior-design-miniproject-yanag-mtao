@@ -17,9 +17,6 @@ import AddFoodButton from "./addFoodButton";
 
 
 export default function NewIngredientModal(props) {
-  console.log("from modal, barcode: ", props.barCodeIngredient);
-  // set data received from barcode
-
     var [nameText, onChangeNameText]         = React.useState("");
     var [servingsText, onChangeServingsText] = React.useState("1");
     var [caloriesText, onChangeCaloriesText] = React.useState("0");

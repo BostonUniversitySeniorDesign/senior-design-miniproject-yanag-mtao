@@ -1,6 +1,8 @@
 import React, { useEffect, useContext } from 'react';
 import { Text, Button, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Constants from 'expo-constants';
+
 
 import firebase from 'firebase';
 import { ResponseType } from 'expo-auth-session';
@@ -11,10 +13,10 @@ export default function GoogleUserSignIn() {
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
     {
-      expoClientId: '377513650386-f5kcu9r0nl52leftfd277do21s3e81ft.apps.googleusercontent.com',
-      webClientId: '377513650386-bavoedpc8tim7gal4po64sh373gsb0fv.apps.googleusercontent.com',
-      androidClientId: '377513650386-nlo77cbtn19b5pr3g4s3b8f3cfcago7g.apps.googleusercontent.com',
-      iosClientId: '377513650386-5rass0tt9ao84lp88s64t4mkbc4g24qk.apps.googleusercontent.com',
+      expoClientId: Constants.manifest.extra.GOOGLE_EXPO_CLIENT_ID,
+      webClientId: Constants.manifest.extra.GOOGLE_WEB_CLIENT_ID,
+      androidClientId: Constants.manifest.extra.GOOGLE_ANDROID_CLIENT_ID,
+      iosClientId: Constants.manifest.extra.GOOGLE_IOS_CLIENT_ID,
     },
   );
 
@@ -34,12 +36,9 @@ export default function GoogleUserSignIn() {
 
   React.useEffect(() => {
       if (response?.type === 'success') {
-        console.log("res success");
         const { id_token } = response.params;
-        console.log(id_token);
 
         const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
-        console.log('firebase cred', credential);
         firebase
           .auth()
           .signInWithCredential(credential)

@@ -9,9 +9,6 @@ import TrashButton from './trashButton';
 
 
 export default function IngredientTable(props) {
-  console.log('table', props);
-
-
   return (
     <View style={styles.container}>
       <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>

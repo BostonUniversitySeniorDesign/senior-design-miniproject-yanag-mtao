@@ -32,11 +32,8 @@ export default function NewRecipeScreen({ navigation, route, props}) {
     ref
       .onSnapshot((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
         setRecipe(doc.data());
-        console.log("recipe: ", recipe);
         if (loading) {
-          console.log("No longer loading");
           setLoading(false);
         }
       });
@@ -79,7 +76,6 @@ export default function NewRecipeScreen({ navigation, route, props}) {
              dataType: ["Branded"],
              userId: 1,
            });
-        console.log(JSON.stringify(response.data));
         data = response.data;
         if (data.totalHits == 0) {
           alert(`Unable to find nutrition data for barcode ${barcode}`);
@@ -88,7 +84,6 @@ export default function NewRecipeScreen({ navigation, route, props}) {
           food = data.foods[0];
           var cals = 0;
           for (let nutrient of food.foodNutrients) {
-            console.log(nutrient);
             if (nutrient.nutrientName == "Energy") {
               cals = nutrient.value;
             }
@@ -131,7 +126,6 @@ export default function NewRecipeScreen({ navigation, route, props}) {
     };
 
   const deleteIngredient = (idx) => {
-    console.log(`deleting ingredient ${idx}`);
     var res = recipe.ingredients.filter((e, i) => {
       return (i != idx);
     });

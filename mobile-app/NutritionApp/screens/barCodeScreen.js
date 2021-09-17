@@ -2,7 +2,6 @@ import React, { useState, useEffect }  from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-import firestore from '@react-native-firebase/firestore';
 
 export default function BarCodeScreen({ navigation }) {
   const [hasPermission, setHasPermission]  = useState(null);
@@ -12,7 +11,6 @@ export default function BarCodeScreen({ navigation }) {
   useEffect(() => {
       (async () => {
         try {
-          console.log(BarCodeScanner.requestPermissionsAsync);
           const { status } = await BarCodeScanner.requestPermissionsAsync();
           setHasPermission(status === 'granted');
         }

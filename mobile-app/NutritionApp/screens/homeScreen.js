@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button,ImageBackground, Modal, Pressable} from 'react-native';
+import Constants from 'expo-constants';
+
 
 import BarCodeScreen from './barCodeScreen';
 import AddFoodButton from "../components/addFoodButton";
@@ -11,12 +13,11 @@ import NewRecipeModal from '../components/newRecipeModal';
 
 import firebase from 'firebase';
 
-
 if (!firebase.apps.length) {
    firebase.initializeApp({
-     apiKey:     'AIzaSyC1NMYu8rodDtTIVH2i0HjCoJ1utX116iQ',
-     authDomain: 'nutritionapp-779c5.firebaseapp.com',
-     projectId:  'nutritionapp-779c5'
+     apiKey:     Constants.manifest.extra.FIREBASE_API_KEY,
+     authDomain: Constants.manifest.extra.FIREBASE_AUTH_DOMAIN,
+     projectId:  Constants.manifest.extra.FIREBASE_PROJECT_ID
    });
      firebase.firestore().settings({ experimentalForceLongPolling: true });
 
@@ -29,15 +30,12 @@ const dbh = firebase.firestore();
 
 
 export default function HomeScreen({ navigation, route }) {
-//  const { authData, signOut }                = useContext(AuthContext);
   const [ selectedRecipe, setSelectedRecipe] = useState({});
   const [ recipes, setRecipes]               = useState([]);
   const [ loading, setLoading]               = useState(true);
 
   let user = firebase.auth().currentUser;
   const ref = dbh.collection('recipes');
-
-  console.log("homescreeen user", user);
 
   // update ingredients from database as needed
   useEffect(() => {
@@ -74,7 +72,6 @@ export default function HomeScreen({ navigation, route }) {
    };
 
 
-//  console.log("auth data", authData);
   return (
     <ImageBackground
       style={styles.background}

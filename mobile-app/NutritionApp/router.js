@@ -17,9 +17,9 @@ const Stack = createNativeStackNavigator();
 
 if (!firebase.apps.length) {
    firebase.initializeApp({
-     apiKey:     'AIzaSyC1NMYu8rodDtTIVH2i0HjCoJ1utX116iQ',
-     authDomain: 'nutritionapp-779c5.firebaseapp.com',
-     projectId:  'nutritionapp-779c5'
+     apiKey:     Constants.manifest.extra.FIREBASE_API_KEY,
+     authDomain: Constants.manifest.extra.FIREBASE_AUTH_DOMAIN,
+     projectId:  Constants.manifest.extra.FIREBASE_PROJECT_ID
    });
      firebase.firestore().settings({ experimentalForceLongPolling: true });
 
@@ -34,13 +34,6 @@ export const AppRouter = () => {
 
 
   firebase.auth().onAuthStateChanged(async (user) => {
-      if (user != null) {
-        console.log('We are authenticated now! For sure!');
-        console.log(user);
-      }
-      else {
-        console.log("user is null");
-      }
       setUser(user);
   });
 
