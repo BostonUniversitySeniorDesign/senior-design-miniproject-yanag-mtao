@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button,ImageBackground, Modal, Pressable} from 'react-native';
+import { StyleSheet, Text, View, Button,ImageBackground, Modal, Image, Pressable} from 'react-native';
 import Constants from 'expo-constants';
 
 
@@ -78,6 +78,7 @@ export default function HomeScreen({ navigation, route }) {
       source={require("../assets/Foodbackground.png")}
     >
       <Text style={styles.titleText}> Welcome {user.displayName}!</Text>
+
       <Text style={styles.contentText}> Select Your Recipe:</Text>
       {loading ? (<Text> Loading... </Text>) :
       (<RecipePicker data={recipes} />)
@@ -113,5 +114,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 7,
     color: "black",
-  }
+  },
+  icon: {width:50, height:50, borderRadius: 50},
 });
