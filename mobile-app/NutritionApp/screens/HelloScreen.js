@@ -16,8 +16,8 @@ function HelloScreen({ navigation, route }) {
             <View style={styles.loginButton}>
               <GoogleUserSignIn/>
             </View>
-            <Text style={styles.logintext}> -Login With Google-</Text>
         </ImageBackground>
+
     );
 }
 
@@ -49,7 +49,9 @@ const styles = StyleSheet.create({
         color: "black",
       },
       logintext:{
-          bottom: 180
+          bottom: 150,
+          justifyContent: "center",
+          alignItems: "center"
       }
 })
 export default HelloScreen;

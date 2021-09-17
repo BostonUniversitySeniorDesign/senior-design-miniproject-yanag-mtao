@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Text, Button, TouchableOpacity } from 'react-native';
+import { Text, Button, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 import firebase from 'firebase';
@@ -20,11 +20,13 @@ export default function GoogleUserSignIn() {
 
   const LoginButton = ({ onPress }) => (
     <TouchableOpacity
+    style={{backgroundColor: '#d3d8e0', borderRadius: 10, padding:10}}
     disabled={!request}
     onPress={() => {promptAsync();}}
     >
-      <Icon name='google' size={50} color='black' />
-
+      <Icon name='google' size={50} color='black'>
+       <Text style={ {fontSize :20} } > Sign in with Google</Text>
+      </Icon>
     </TouchableOpacity>
 );
 

@@ -27,7 +27,7 @@ export default function NewRecipeModal(props) {
 
 
   return(
-      <View>
+      <View style={{flex:1}}>
       <Modal
           animationType="slide"
            transparent={true}
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
       margin: 12,
       borderWidth: 1,
       padding: 10,
+      width:150,
     },
    container: {
       flex: 1,

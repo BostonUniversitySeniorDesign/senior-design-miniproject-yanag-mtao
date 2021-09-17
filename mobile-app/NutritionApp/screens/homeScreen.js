@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   contentText: {
     paddingTop: 10,
-    fontSize: 15,
+    fontSize: 25,
     fontWeight: 'bold',
     marginLeft: 7,
     color: "black",

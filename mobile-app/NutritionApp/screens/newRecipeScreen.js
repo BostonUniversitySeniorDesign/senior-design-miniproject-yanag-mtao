@@ -155,7 +155,7 @@ export default function NewRecipeScreen({ navigation, route, props}) {
       {(loading || !recipe)?
         (<Text style={styles.contentText}>Loading ingredients...</Text>) :
         (
-        <>
+        <View style={{flex:1}}>
         <IngredientTable
           colNames={['NAME', 'SERVINGS', 'CAL PER SERVING', '']}
           tableData={recipe.ingredients}
@@ -178,7 +178,7 @@ export default function NewRecipeScreen({ navigation, route, props}) {
             barCodeIngredient={barCodeIngredient}
             createNewIngredient={addIngredient}
           />
-        </>
+        </View>
         )
 
       }

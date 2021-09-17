@@ -70,13 +70,14 @@ export default function NewIngredientModal(props) {
          >
            <View >
              <View style={styles.modalView}>
-               <SafeAreaView>
-               <Pressable
+              <Pressable
                  style={[styles.button, styles.buttonClose]}
                  onPress={() => {setModalVisible(!modalVisible); navigation.navigate('BarCode');}}
                >
                  <Text style={styles.textStyle}>Get data from barcode</Text>
                </Pressable>
+               <SafeAreaView>
+
                <Text > Enter the name of your ingredient:</Text>
                <TextInput
                  style={styles.input}

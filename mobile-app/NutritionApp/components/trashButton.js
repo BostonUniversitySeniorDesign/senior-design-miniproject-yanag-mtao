@@ -8,9 +8,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const trashButton = ({ onPress }) => (
     <TouchableOpacity
+      style={{paddingLeft: 30}}
       onPress={onPress}
     >
-      <Icon name='trash' size={30} color='#CACACA' />
+      <Icon  name='trash' size={30} color='#CACACA' />
 
     </TouchableOpacity>
 );
