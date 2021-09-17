@@ -1,12 +1,14 @@
 # senior-design-miniproject Fall 2021
 
-This is an expo-managed React Native mobile app that lets a user create and save recipes. Nutrition information for ingredients can be inputted manually, or populated automatically by scanning a barcode, which then is the input to an FDC API query.
+This is an expo-managed React Native mobile app with a Google Firebase backend that lets a user create and save recipes. Nutrition information for ingredients can be inputted manually, or populated automatically by scanning a barcode, which then is the input to an FDC API query.
 
-This app is published at https://expo.dev/@yanag/NutritionApp. Scanning the QR code using the Expo Go app will download it and run it.l
+This app is published at https://expo.dev/@yanag/NutritionApp. Scanning the QR code using the Expo Go app will download it and run it on your phone.
 
 Note: This app was only tested on an expo-managed workflow (ie through the Expo Go app) on an Android phone
 
 ## Demo video/screenshots
+
+Note: The video was recorded from Yana's personal Android phone, while the screencaps were taken from an Android emulator, which is why some of the UI components look different. 
 
 (Unmute for sound!)
 
